@@ -26,3 +26,6 @@ function displayMessage(message, isUser) {
   chatBox.appendChild(messageElement);
   chatBox.scrollTop = chatBox.scrollHeight; // Scroll to bottom of chat box
 }
+
+// Event listener to send message when 'Send' button is clicked
+document.getElementById('send-button').addEventListener('click', sendMessage);
