@@ -1,7 +1,7 @@
-const { CohereClient } = require("cohere-ai");
+import { CohereClient } from "cohere-ai";
 
 // Export a function to handle the API call
-async function sendToCohere(message) {
+export async function sendToCohere(message) {
   const apiKey = process.env.COHERE_API_KEY;
   const cohere = new CohereClient({
     token: apiKey,
@@ -23,5 +23,3 @@ async function sendToCohere(message) {
       }
   }
 }
-
-module.exports = { sendToCohere }; // Export the function
