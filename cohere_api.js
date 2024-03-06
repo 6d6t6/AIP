@@ -1,14 +1,12 @@
 const { CohereClient } = require("cohere-ai");
 
-const apiKey = process.env.COHERE_API_KEY;
-
-
-const cohere = new CohereClient({
-  token: apiKey,
-});
-
 // Export a function to handle the API call
 async function sendToCohere(message) {
+  const apiKey = process.env.COHERE_API_KEY;
+  const cohere = new CohereClient({
+    token: apiKey,
+  });
+
   const stream = await cohere.chatStream({
     model: "command-nightly",
     message: message,
@@ -27,4 +25,3 @@ async function sendToCohere(message) {
 }
 
 module.exports = { sendToCohere }; // Export the function
-console.log("COHERE_API_KEY:", process.env.COHERE_API_KEY);
