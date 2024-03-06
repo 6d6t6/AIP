@@ -1,5 +1,5 @@
 // cohere_api.js
-const apiKey = process.env.COHERE_API_KEY; // Retrieve API key from environment variable
+const apiKey = env.COHERE_API_KEY; // Retrieve API key from environment variable
 
 // Function to send a message to the Cohere AI API using fetch
 async function sendToCohere(message) {
