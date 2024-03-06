@@ -6,10 +6,11 @@ const cohere = new CohereClient({
   token: apiKey,
 });
 
-(async () => {
+// Export a function to handle the API call
+async function sendToCohere(message) {
   const stream = await cohere.chatStream({
     model: "command-nightly",
-    message: "<YOUR MESSAGE HERE>",
+    message: message,
     chatHistory: [],
     promptTruncation: "AUTO",
     citationQuality: "accurate",
@@ -19,7 +20,9 @@ const cohere = new CohereClient({
 
   for await (const chat of stream) {
       if (chat.eventType === "text-generation") {
-          process.stdout.write(chat.text);
+          return chat.text; // Return the response from Cohere API
       }
   }
-})();
+}
+
+module.exports = { sendToCohere }; // Export the function
