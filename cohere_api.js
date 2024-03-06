@@ -2,6 +2,7 @@ const { CohereClient } = require("cohere-ai");
 
 const apiKey = process.env.COHERE_API_KEY;
 
+
 const cohere = new CohereClient({
   token: apiKey,
 });
@@ -26,3 +27,4 @@ async function sendToCohere(message) {
 }
 
 module.exports = { sendToCohere }; // Export the function
+console.log("COHERE_API_KEY:", process.env.COHERE_API_KEY);
