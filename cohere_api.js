@@ -1,4 +1,4 @@
-import { CohereClient } from "cohere-ai";
+import { CohereClient } from "/cohere-ai";
 
 // Export a function to handle the API call
 export async function sendToCohere(message) {
