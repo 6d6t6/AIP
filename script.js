@@ -2,15 +2,19 @@ const chatBox = document.getElementById('chat-box');
 const userInput = document.getElementById('user-input');
 
 // Function to send a message to the chatbot
-function sendMessage() {
+async function sendMessage() {
   const userMessage = userInput.value.trim();
   if (userMessage !== '') {
     displayMessage(userMessage, true); // Display user's message in chat
     userInput.value = ''; // Clear input field
-    // Send user's message to the chatbot and display response
-    // Replace the following line with your actual code to send message to Cohere API
-    // For testing, we'll just echo the user's message back as the response
-    displayMessage(`Echo: ${userMessage}`, false); // Display chatbot's response
+    try {
+      // Send user's message to the chatbot and display response
+      const response = await sendToCohere(userMessage);
+      displayMessage(response, false); // Display chatbot's response
+    } catch (error) {
+      console.error('Error sending message to Cohere:', error);
+      displayMessage('Sorry, an error occurred. Please try again.', false);
+    }
   }
 }
 
