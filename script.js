@@ -1,3 +1,5 @@
+const { sendToCohere } = require('./cohere_api');
+
 const chatBox = document.getElementById('chat-box');
 const userInput = document.getElementById('user-input');
 
@@ -8,9 +10,8 @@ async function sendMessage() {
     displayMessage(userMessage, true); // Display user's message in chat
     userInput.value = ''; // Clear input field
     try {
-      // Send user's message to the chatbot and display response
-      const response = await sendToCohere(userMessage);
-      displayMessage(response, false); // Display chatbot's response
+      // Send user's message to the chatbot using cURL
+      await sendToCohere(userMessage);
     } catch (error) {
       console.error('Error sending message to Cohere:', error);
       displayMessage('Sorry, an error occurred. Please try again.', false);
@@ -25,26 +26,6 @@ function displayMessage(message, isUser) {
   messageElement.textContent = message;
   chatBox.appendChild(messageElement);
   chatBox.scrollTop = chatBox.scrollHeight; // Scroll to bottom of chat box
-}
-
-// Function to send a message to the Cohere AI API
-async function sendToCohere(message) {
-  const cohere = new CohereClient();
-  const stream = await cohere.chatStream({
-    model: "command-nightly",
-    message: message,
-    chatHistory: [],
-    promptTruncation: "AUTO",
-    citationQuality: "accurate",
-    connectors: [{"id":"web-search"}],
-    documents: []
-  });
-
-  for await (const chat of stream) {
-    if (chat.eventType === "text-generation") {
-      return chat.text; // Return the response from Cohere API
-    }
-  }
 }
 
 // Event listener to send message when 'Send' button is clicked
