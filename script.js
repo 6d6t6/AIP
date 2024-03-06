@@ -1,4 +1,5 @@
-const { sendToCohere } = require('./cohere_api');
+// script.js
+import { sendToCohere } from './cohere_api.js';
 
 const chatBox = document.getElementById('chat-box');
 const userInput = document.getElementById('user-input');
@@ -10,8 +11,9 @@ async function sendMessage() {
     displayMessage(userMessage, true); // Display user's message in chat
     userInput.value = ''; // Clear input field
     try {
-      // Send user's message to the chatbot using cURL
-      await sendToCohere(userMessage);
+      // Send user's message to the chatbot using the Cohere API
+      const response = await sendToCohere(userMessage);
+      // Process the response as needed
     } catch (error) {
       console.error('Error sending message to Cohere:', error);
       displayMessage('Sorry, an error occurred. Please try again.', false);
